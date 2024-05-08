@@ -1,6 +1,8 @@
 -- Set encoding to UTF-8
 vim.opt.encoding = "UTF-8"
 
+vim.o.guifont = "UbuntuSansMono\\ NF:h11"
+
 -- General Settings
 vim.cmd([[
     set number
@@ -14,9 +16,9 @@ vim.cmd([[
     let mapleader=" "
     inoremap jk <Esc>
     tnoremap jk <C-\><C-n>
+    let &shell='"C:\\Program Files\\Git\\bin\\bash.exe" -f'
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
     ]])
--- let &shell='"C:\Program Files\Git\bin\bash.exe" -f'
 
 -- File Saving
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', {noremap = true})
@@ -56,19 +58,23 @@ vim.g.airline_powerline_fonts = 1
 
 -- WordProcessor function
 function WordProcessor()
-    -- movement changes
-    vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
-    vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
-    -- formatting text
-    vim.bo.formatoptions = "1"
-    vim.bo.expandtab = false
-    vim.bo.wrap = true
-    vim.bo.linebreak = true
-    -- spelling and thesaurus
-    vim.bo.spell = true
-    vim.bo.spelllang = "en_us"
-    vim.bo.thesaurus:add("/home/test/.vim/thesaurus/mthesaur.txt")
-    vim.bo.complete:append("s")
+    if vim.bo.modifiable then
+        -- movement changes
+        vim.api.nvim_set_keymap('n', 'j', 'gj', {noremap = true})
+        vim.api.nvim_set_keymap('n', 'k', 'gk', {noremap = true})
+        -- formatting text
+        vim.bo.formatoptions = "1"
+        vim.bo.expandtab = false
+        vim.bo.wrap = true
+        vim.bo.linebreak = true
+        -- spelling and thesaurus
+        vim.bo.spell = true
+        vim.bo.spelllang = "en_us"
+        vim.bo.thesaurus:add("\\home\\test\\.vim\\thesaurus\\mthesaur.txt")
+        vim.bo.complete:append("s")
+    else
+        print("Buffer is not modifiable")
+    end
 end
 
 vim.cmd([[command! WP call WordProcessor()]])
@@ -79,12 +85,3 @@ vim.g.ctrlp_user_command = {
     'rg --files --hidden --iglob !.git'
 }
 
--- Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not auto-select, nvim-cmp plugin will handle this for us.
-vim.o.completeopt = "menuone,noinsert,noselect"
-
--- Avoid showing extra messages when using completion
-vim.opt.shortmess = vim.opt.shortmess + "c"

@@ -1,6 +1,5 @@
 require('packer').startup(function()
     use("wbthomason/packer.nvim")
-    use 'christoomey/vim-tmux-navigator'
     use 'bling/vim-airline'
     use 'norcalli/nvim-colorizer.lua'
     use 'alvan/vim-closetag'
@@ -33,8 +32,16 @@ require('packer').startup(function()
     }
 
     -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({
+                with_sync = true
+            })
+            ts_update()
+        end
+    }
+
     -- Theme
     use {'azashiromerume/nagisa.nvim'}
 
