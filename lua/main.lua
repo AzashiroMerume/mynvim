@@ -16,7 +16,6 @@ vim.cmd([[
     let mapleader=" "
     inoremap jk <Esc>
     tnoremap jk <C-\><C-n>
-    let &shell='"C:\\Program Files\\Git\\bin\\bash.exe" -f'
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
     ]])
 
