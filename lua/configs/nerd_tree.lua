@@ -8,6 +8,4 @@ vim.cmd([[
     nnoremap <silent> <C-f> :NERDTreeFind<CR>
     nnoremap <silent> <C-b> :NERDTreeToggle<CR>
     autocmd VimEnter * NERDTree
-    autocmd Bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
 ]])
