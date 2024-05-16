@@ -1,7 +1,14 @@
 require'nvim-treesitter.install'.compilers = {"gcc"}
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {
-        'c', 'cpp', 'go', 'lua', 'rust', 'typescript', 'cmake'
+        'c', 'cpp', 'go', 'lua', 'rust', 'typescript', 'cmake', 'vue'
+    },
+    autotag = {
+        enable = true,
+        enable_rename = true,
+        enable_close = true,
+        enable_close_on_slash = true,
+        filetypes = {"html", "xml", "vue"}
     },
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,

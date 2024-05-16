@@ -17,7 +17,7 @@ vim.cmd([[
     inoremap jk <Esc>
     tnoremap jk <C-\><C-n>
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-    ]])
+]])
 
 -- File Saving
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', {noremap = true})
@@ -83,4 +83,3 @@ vim.g.ctrlp_user_command = {
     -- Exclude .git directory
     'rg --files --hidden --iglob !.git'
 }
-
