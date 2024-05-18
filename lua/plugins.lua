@@ -3,8 +3,15 @@ require('packer').startup(function()
     -- Packer can manage itself
     use('wbthomason/packer.nvim')
 
-    -- Airline status/tabline
-    use 'bling/vim-airline'
+    -- Move between panes from nvim
+    use {"letieu/wezterm-move.nvim"}
+
+    -- Lualine
+    use {
+        'nvim-lualine/lualine.nvim',
+        config = function() require('lualine').setup() end,
+        requires = {'nvim-tree/nvim-web-devicons', opt = true}
+    }
 
     -- File icons
     use 'nvim-tree/nvim-web-devicons'

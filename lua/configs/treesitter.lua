@@ -1,7 +1,8 @@
 require'nvim-treesitter.install'.compilers = {"gcc"}
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {
-        'c', 'cpp', 'go', 'lua', 'rust', 'typescript', 'cmake', 'vue'
+        'c', 'cpp', 'go', 'lua', 'rust', 'typescript', 'cmake', 'vue', 'html',
+        'css', 'javascript', 'json', 'yaml', 'markdown', 'graphql', 'scss'
     },
     autotag = {
         enable = true,

@@ -42,11 +42,9 @@ vim.api.nvim_set_keymap('n', '<leader>t', ':term<CR>',
 
 -- Buffer navigation/tab navigation
 -- Create new tab with new buffer
-vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnew<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>n', ':tabnew<CR>', {noremap = true})
 -- Switch to next buffer/tab
--- Move to next tab with Ctrl+Tab
 vim.api.nvim_set_keymap('n', '<leader>bn', ':bnext<CR>', {noremap = true})
--- Move to previous tab with Ctrl+Shift+Tab
 vim.api.nvim_set_keymap('n', '<leader>bp', ':bprev<CR>', {noremap = true})
 
 -- Clipboard settings
