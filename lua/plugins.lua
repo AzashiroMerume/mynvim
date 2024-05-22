@@ -1,32 +1,28 @@
-require('packer').startup(function()
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git", "clone", "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git", "--branch=stable", -- latest stable release
+        lazypath
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-    -- Packer can manage itself
-    use('wbthomason/packer.nvim')
-
-    -- Move between panes from nvim
-    use {"letieu/wezterm-move.nvim"}
-
-    -- Lualine
-    use {
+require('lazy').setup({
+    -- Lazy.nvim can manage itself
+    {'letieu/wezterm-move.nvim'}, -- Lualine
+    {
         'nvim-lualine/lualine.nvim',
-        config = function() require('lualine').setup() end,
-        requires = {'nvim-tree/nvim-web-devicons', opt = true}
-    }
-
-    -- File icons
-    use 'nvim-tree/nvim-web-devicons'
-
-    -- Color highlighter
-    use 'norcalli/nvim-colorizer.lua'
-
-    -- Automatically close HTML tags
-    use 'alvan/vim-closetag'
-
-    -- File explorer
-    use {
+        dependencies = {'nvim-tree/nvim-web-devicons'},
+        config = function() require('lualine').setup() end
+    }, -- File icons
+    {'nvim-tree/nvim-web-devicons'}, -- Color highlighter
+    {'norcalli/nvim-colorizer.lua'}, -- Automatically close HTML tags
+    {'alvan/vim-closetag'}, -- File explorer
+    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
-        requires = {
+        dependencies = {
             "nvim-lua/plenary.nvim", -- Common utilities
             "nvim-tree/nvim-web-devicons", -- File icons
             "MunifTanjim/nui.nvim", -- UI components
@@ -50,128 +46,87 @@ require('packer').startup(function()
                 end
             }
         }
-    }
-
-    -- Git integration
-    use 'airblade/vim-gitgutter'
-    use 'dinhhuy258/git.nvim' -- Simple clone of vim-fugitive
+    }, -- Git integration
+    {'lewis6991/gitsigns.nvim'}, {'dinhhuy258/git.nvim'}, -- Simple clone of vim-fugitive
 
     -- Package management
-    use {'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim'}
+    {'williamboman/mason.nvim'}, {'williamboman/mason-lspconfig.nvim'},
 
     -- Fuzzy finder and picker
-    use {
+    {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.6',
-        requires = {{'nvim-lua/plenary.nvim'}}
-    }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-    use {
+        dependencies = {{'nvim-lua/plenary.nvim'}}
+    }, {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
+    {
         'FabianWirth/search.nvim',
         dependencies = {'nvim-telescope/telescope.nvim'}
-    }
-
-    -- Navigation
-    use {
+    }, -- Move Line and Blocks
+    {'fedepujol/move.nvim'}, -- Navigation
+    {
         'ThePrimeagen/harpoon',
         branch = 'harpoon2',
-        requires = {{'nvim-lua/plenary.nvim'}}
-    }
-
-    -- Syntax highlighting
-    use {
+        dependencies = {{'nvim-lua/plenary.nvim'}}
+    }, -- Syntax highlighting
+    {
         'nvim-treesitter/nvim-treesitter',
-        run = function()
+        build = function()
             local ts_update = require('nvim-treesitter.install').update({
                 with_sync = true
             })
             ts_update()
         end
-    }
-
-    -- Themes
-    use 'azashiromerume/nagisa.nvim'
-    use 'dasupradyumna/midnight.nvim'
-    use 'projekt0n/github-nvim-theme'
-
-    -- Zen mode and Twilight
-    use 'folke/zen-mode.nvim'
-    use 'folke/twilight.nvim'
-
-    -- Buffer line
-    use {
+    }, -- Themes
+    {'azashiromerume/nagisa.nvim'}, {'dasupradyumna/midnight.nvim'},
+    {'projekt0n/github-nvim-theme'}, -- Zen mode and Twilight
+    {'folke/zen-mode.nvim'}, {'folke/twilight.nvim'}, -- Buffer line
+    {
         'akinsho/bufferline.nvim',
-        tag = '*',
-        requires = 'nvim-tree/nvim-web-devicons'
-    }
-    use 'famiu/bufdelete.nvim' -- Tab deletion control for bufferline
-
+        version = '*',
+        dependencies = 'nvim-tree/nvim-web-devicons'
+    }, {'famiu/bufdelete.nvim'}, -- Tab deletion control for bufferline
     -- Linting
-    use 'mfussenegger/nvim-lint'
-
-    -- Formatting
-    use('stevearc/conform.nvim')
-
-    -- Autopairs
-    use {
+    {'mfussenegger/nvim-lint'}, -- Formatting
+    {'stevearc/conform.nvim'}, -- Autopairs
+    {
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
-        config = function() require('nvim-autopairs').setup {} end
-    }
-
-    -- LSP configuration
-    use 'neovim/nvim-lspconfig'
-    use({'j-hui/fidget.nvim', config = function() require('fidget').setup() end})
+        config = function() require('nvim-autopairs').setup() end
+    }, -- LSP configuration
+    {'neovim/nvim-lspconfig'},
+    {'j-hui/fidget.nvim', config = function() require('fidget').setup() end},
 
     -- Debug Adapter Protocol (DAP)
-    use 'mfussenegger/nvim-dap'
-
-    -- Autocompletion
-    use('hrsh7th/nvim-cmp')
-    use({
-        'hrsh7th/cmp-nvim-lsp', -- LSP completion
-        'saadparwaiz1/cmp_luasnip', -- Snippet completion
-        'hrsh7th/cmp-vsnip', -- Snippet completion
-        'hrsh7th/cmp-path', -- Path completion
-        'hrsh7th/cmp-buffer', -- Buffer completion
-        'onsails/lspkind.nvim', -- LSP icons
-        after = {'hrsh7th/nvim-cmp'},
-        requires = {'hrsh7th/nvim-cmp'}
-    })
-    use({"L3MON4D3/LuaSnip", tag = "v2.*"}) -- Snippet engine
-    use('hrsh7th/vim-vsnip') -- Snippet engine
-
+    {'mfussenegger/nvim-dap'}, -- Autocompletion
+    {'hrsh7th/nvim-cmp'}, {
+        'hrsh7th/cmp-nvim-lsp',
+        'saadparwaiz1/cmp_luasnip',
+        'hrsh7th/cmp-vsnip',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-buffer',
+        'onsails/lspkind.nvim',
+        dependencies = {'hrsh7th/nvim-cmp'}
+    }, {"L3MON4D3/LuaSnip", version = "v2.*"}, -- Snippet engine
+    {'hrsh7th/vim-vsnip'}, -- Snippet engine
     -- Rust support
-    use('rust-lang/rust.vim') -- Syntax highlighting, formatting, etc.
-    use({'mrcjkb/rustaceanvim', version = '^4', ft = {'rust'}}) -- LSP integration
-
+    {'rust-lang/rust.vim'}, -- Syntax highlighting, formatting, etc.
+    {'mrcjkb/rustaceanvim', version = '^4', ft = {'rust'}}, -- LSP integration
     -- TypeScript support
-    use {
+    {
         'pmizio/typescript-tools.nvim',
-        requires = {'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig'}
-    }
-    use 'leafgarland/typescript-vim' -- Highlighting
-    use 'peitalin/vim-jsx-typescript' -- JSX support
-
+        dependencies = {'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig'}
+    }, {'leafgarland/typescript-vim'}, -- Highlighting
+    {'peitalin/vim-jsx-typescript'}, -- JSX support
     -- Dart/Flutter support
-    use 'dart-lang/dart-vim-plugin'
-    use 'thosakwe/vim-flutter'
-    use 'natebosch/vim-lsc'
-    use 'natebosch/vim-lsc-dart'
+    {'dart-lang/dart-vim-plugin'}, {'thosakwe/vim-flutter'},
+    {'natebosch/vim-lsc'}, {'natebosch/vim-lsc-dart'},
 
     -- Nuxt.js components navigation
-    use('rushjs1/nuxt-goto.nvim')
-
-    -- Commands work with Russian keyboard layout
-    use 'powerman/vim-plugin-ruscmd'
-
-    -- Markdown preview
-    use({
+    {'rushjs1/nuxt-goto.nvim'}, -- Commands work with Russian keyboard layout
+    {'powerman/vim-plugin-ruscmd'}, -- Markdown preview
+    {
         'iamcco/markdown-preview.nvim',
-        run = function() vim.fn['mkdp#util#install']() end
-    })
-
-    -- Devicons
-    use 'ryanoasis/vim-devicons'
-
-end)
+        build = function() vim.fn['mkdp#util#install']() end
+    }, -- Devicons
+    {'ryanoasis/vim-devicons'}
+})

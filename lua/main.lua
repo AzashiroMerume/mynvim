@@ -35,6 +35,12 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', {noremap = true})
 
+-- Fast movement keybindings
+vim.api.nvim_set_keymap('n', '<S-h>', '5h', {noremap = true})
+vim.api.nvim_set_keymap('n', '<S-j>', '5j', {noremap = true})
+vim.api.nvim_set_keymap('n', '<S-k>', '5k', {noremap = true})
+vim.api.nvim_set_keymap('n', '<S-l>', '5l', {noremap = true})
+
 -- Terminal configuration
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>t', ':term<CR>',
@@ -81,3 +87,18 @@ vim.g.ctrlp_user_command = {
     -- Exclude .git directory
     'rg --files --hidden --iglob !.git'
 }
+
+function OpenConfigFolder() vim.cmd('e C:\\Users\\kuand\\AppData\\Local\\nvim') end
+
+-- Map <leader>ec to open Neovim config folder
+vim.api.nvim_set_keymap('n', '<leader>ec', ':lua OpenConfigFolder()<CR>',
+                        {noremap = true, silent = true})
+
+-- Function to open Neovim config folder with a username argument
+function OpenConfigFolder(username)
+    local path = 'C:\\Users\\' .. username .. '\\AppData\\Local\\nvim'
+    vim.cmd('e ' .. path)
+end
+
+-- Create a custom command :OpenConfig <username> to call OpenConfigFolder function
+vim.cmd('command! -nargs=1 OpenConfig lua OpenConfigFolder(<f-args>)')
