@@ -1,6 +1,5 @@
 require('plugins')
 require('main')
-require('configs.mason')
 require('configs.completion')
 require('configs.telescope')
 require('configs.colorizer')

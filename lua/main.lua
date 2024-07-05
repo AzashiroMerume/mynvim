@@ -35,10 +35,6 @@ vim.api.nvim_set_keymap("n", "<leader>hs", ":split<CR>", { noremap = true, silen
 -- Close split
 vim.api.nvim_set_keymap("n", "<leader>cl", ":close<CR>", { noremap = true, silent = true })
 
--- Fast commentary
-vim.api.nvim_set_keymap("n", "<leader>c", ":Commentary<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "<leader>c", ":Commentary<CR>", { noremap = true, silent = true })
-
 -- Split navigation keybindings
 vim.api.nvim_set_keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true })
 vim.api.nvim_set_keymap("t", "<C-j>", "<C-\\><C-n><C-w>j", { noremap = true })

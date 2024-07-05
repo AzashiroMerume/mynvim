@@ -10,7 +10,6 @@ lspconfig.dartls.setup({
 			vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or { silent = true })
 		end
 
-		-- Example keybindings for LSP functions
 		buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 		buf_map(bufnr, "n", "S", "<cmd>lua vim.lsp.buf.hover()<CR>")
 		buf_map(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
@@ -26,6 +25,14 @@ lspconfig.dartls.setup({
 			},
 			updateImportsOnRename = true,
 			completeFunctionCalls = true,
+		},
+	},
+})
+
+lspconfig.volar.setup({
+	init_options = {
+		vue = {
+			hybridMode = false,
 		},
 	},
 })
