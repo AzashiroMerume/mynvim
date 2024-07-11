@@ -22,6 +22,8 @@ vim.cmd([[
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
 
+vim.api.nvim_set_keymap("n", "<leader>sv", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
+
 -- File Saving
 vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
 
@@ -33,7 +35,7 @@ vim.api.nvim_set_keymap("n", "<leader>vs", ":vsplit<CR>", { noremap = true, sile
 vim.api.nvim_set_keymap("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
 
 -- Close split
-vim.api.nvim_set_keymap("n", "<leader>cl", ":close<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>cs", ":close<CR>", { noremap = true, silent = true })
 
 -- Split navigation keybindings
 vim.api.nvim_set_keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true })
@@ -46,6 +48,10 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true })
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true })
 
 -- Fast movement keybindings
+vim.api.nvim_set_keymap("n", "<leader>ls", "^", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>le", "$", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<leader>ls", "^", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "<leader>le", "$", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<S-h>", "5h", { noremap = true })
 vim.api.nvim_set_keymap("n", "<S-j>", "5j", { noremap = true })
 vim.api.nvim_set_keymap("n", "<S-k>", "5k", { noremap = true })

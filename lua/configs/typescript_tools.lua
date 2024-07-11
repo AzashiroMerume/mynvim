@@ -14,12 +14,12 @@ require("typescript-tools").setup({
 		"vue",
 	},
 	settings = {
-		separate_diagnostic_server = false,
+		separate_diagnostic_server = true,
 		expose_as_code_action = {},
 		tsserver_plugins = {
 			"@styled/typescript-styled-plugin",
-      "@vue/language-server",
-      "@vue/typescript-plugin",
+			"@vue/language-server",
+			"@vue/typescript-plugin",
 		},
 		tsserver_max_memory = "auto",
 		tsserver_format_options = {},
