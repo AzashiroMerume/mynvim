@@ -5,6 +5,7 @@ vim.opt.termguicolors = true
 vim.o.guifont = "UbuntuSansMono\\ NF:h11"
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
+vim.o.wrap = false
 
 -- General Settings
 vim.cmd([[
@@ -21,8 +22,6 @@ vim.cmd([[
     tnoremap jk <C-\><C-n>
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
-
-vim.api.nvim_set_keymap("n", "<leader>sv", ":source $MYVIMRC<CR>", { noremap = true, silent = true })
 
 -- File Saving
 vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
@@ -69,10 +68,11 @@ vim.api.nvim_set_keymap("n", "<leader>t", ":term<CR>", { noremap = true, silent 
 
 -- Buffer navigation/tab navigation
 -- Create new tab with new buffer
-vim.api.nvim_set_keymap("n", "<leader>nn", ":tabnew<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>tn", ":tabnew<CR>", { noremap = true })
+
 -- Switch to next buffer/tab
-vim.api.nvim_set_keymap("n", "<leader>bn", ":bnext<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>bp", ":bprev<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>n", ":bnext<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>p", ":bprev<CR>", { noremap = true })
 
 -- Clipboard settings
 vim.opt.clipboard:append("unnamedplus")
