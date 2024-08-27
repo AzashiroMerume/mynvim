@@ -54,7 +54,17 @@ require("lazy").setup({
 		},
 	}, -- Git integration
 	{ "lewis6991/gitsigns.nvim" },
-	{ "dinhhuy258/git.nvim" }, -- Simple clone of vim-fugitive
+	{ "dinhhuy258/git.nvim" },
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"sindrets/diffview.nvim",
+
+			"nvim-telescope/telescope.nvim",
+		},
+		config = true,
+	},
 
 	-- Package management
 	{ "williamboman/mason.nvim" },
@@ -85,10 +95,21 @@ require("lazy").setup({
 			})
 			ts_update()
 		end,
-	}, -- Themes
+	},
+	-- Theme picker
+	{
+		"vague2k/huez.nvim",
+		-- if you want registry related features, uncomment this
+		-- import = "huez-manager.import"
+		branch = "stable",
+		event = "UIEnter",
+		config = function()
+			require("huez").setup({})
+		end,
+	},
+	-- Themes
 	{ "azashiromerume/nagisa.nvim" },
 	{ "dasupradyumna/midnight.nvim" },
-	{ "projekt0n/github-nvim-theme" }, -- Zen mode and Twilight
 	{ "folke/zen-mode.nvim" },
 	{ "folke/twilight.nvim" }, -- Buffer line
 	{
@@ -115,6 +136,14 @@ require("lazy").setup({
 		end,
 	},
 
+	---- AI suggestion
+	--{
+	--	"supermaven-inc/supermaven-nvim",
+	--	config = function()
+	--		require("supermaven-nvim").setup({})
+	--	end,
+	--},
+
 	-- Debug Adapter Protocol (DAP)
 	{ "mfussenegger/nvim-dap" }, -- Autocompletion
 	{ "hrsh7th/nvim-cmp" },
@@ -139,7 +168,6 @@ require("lazy").setup({
 		opts = {},
 	},
 	{ "leafgarland/typescript-vim" }, -- Highlighting
-	{ "peitalin/vim-jsx-typescript" }, -- JSX support
 
 	-- Nuxt.js components navigation
 	{ "rushjs1/nuxt-goto.nvim" }, -- Commands work with Russian keyboard layout
