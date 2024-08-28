@@ -96,17 +96,19 @@ require("lazy").setup({
 			ts_update()
 		end,
 	},
-	-- Theme picker
-	{
-		"vague2k/huez.nvim",
-		-- if you want registry related features, uncomment this
-		-- import = "huez-manager.import"
-		branch = "stable",
-		event = "UIEnter",
-		config = function()
-			require("huez").setup({})
-		end,
-	},
+	-- Theme Picker
+	-- {
+	-- 	"vague2k/huez.nvim",
+	-- 	-- if you want registry related features, uncomment this
+	-- 	-- import = "huez-manager.import"
+	-- 	branch = "stable",
+	-- 	event = "UIEnter",
+	-- 	config = function()
+	-- 		require("huez").setup({})
+	-- 	end,
+	-- },
+	-- Theme Picker
+	{ "zaldih/themery.nvim" },
 	-- Themes
 	{ "azashiromerume/nagisa.nvim" },
 	{ "dasupradyumna/midnight.nvim" },
