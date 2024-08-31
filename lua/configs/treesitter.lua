@@ -19,7 +19,6 @@ require("nvim-treesitter.configs").setup({
 		"scss",
 		"gdscript",
 		"godot_resource",
-		"gdshader",
 		"zig",
 	},
 	autotag = {
