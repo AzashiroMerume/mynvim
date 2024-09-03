@@ -110,7 +110,7 @@ require("lazy").setup({
 	-- Theme Picker
 	{ "zaldih/themery.nvim" },
 	-- Themes
-	{ "azashiromerume/nagisa.nvim" },
+	{ "azashiromerume/nagisa.nvim", lazy = false, priority = 1000 },
 	{ "dasupradyumna/midnight.nvim" },
 	{ "folke/zen-mode.nvim" },
 	{ "folke/twilight.nvim" }, -- Buffer line
@@ -158,7 +158,10 @@ require("lazy").setup({
 		"onsails/lspkind.nvim",
 		dependencies = { "hrsh7th/nvim-cmp" },
 	},
-	{ "L3MON4D3/LuaSnip", version = "v2.*" }, -- Snippet engine
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.3.0",
+	},
 	{ "hrsh7th/vim-vsnip" }, -- Snippet engine
 	-- Rust support
 	{ "rust-lang/rust.vim" }, -- Syntax highlighting, formatting, etc.

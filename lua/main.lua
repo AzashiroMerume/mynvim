@@ -67,7 +67,6 @@ vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>t", ":term<CR>", { noremap = true, silent = true })
 
 -- Buffer navigation/tab navigation
--- Create new tab with new buffer
 vim.api.nvim_set_keymap("n", "<leader>tn", ":tabnew<CR>", { noremap = true })
 
 -- Switch to next buffer/tab
@@ -86,11 +85,37 @@ vim.g.ctrlp_user_command = {
 	"rg --files --hidden --iglob !.git",
 }
 
--- Function to open Neovim config folder with a username argument
+local function load_dotenv()
+	local ok, dotenv = pcall(require, "dotenv")
+	if ok then
+		dotenv.load()
+	end
+end
+
+local previous_directory = nil
+
 function OpenConfigFolder(username)
+	load_dotenv()
+	previous_directory = vim.fn.getcwd()
+
+	if username == nil or username == "" then
+		username = os.getenv("USERNAME")
+	end
 	local path = "C:\\Users\\" .. username .. "\\AppData\\Local\\nvim"
 	vim.cmd("e " .. path)
 end
 
--- Create a custom command :OpenConfig <username> to call OpenConfigFolder function
-vim.cmd("command! -nargs=1 OpenConfig lua OpenConfigFolder(<f-args>)")
+function ReturnToPreviousDirectory()
+	if previous_directory then
+		vim.cmd("e " .. previous_directory)
+		previous_directory = nil
+	else
+		print("No previous directory saved!")
+		vim.cmd("echo 'No previous directory saved!'")
+	end
+end
+
+vim.cmd("command! -nargs=? OpenConfig lua OpenConfigFolder(<f-args>)")
+vim.cmd("command! ReturnToPreviousDirectory lua ReturnToPreviousDirectory()")
+vim.api.nvim_set_keymap("n", "<leader>oc", ":OpenConfig<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>ob", ":ReturnToPreviousDirectory<CR>", { noremap = true, silent = true })
