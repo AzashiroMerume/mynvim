@@ -96,6 +96,12 @@ require("lazy").setup({
 			ts_update()
 		end,
 	},
+	-- Lua
+	{
+		"olimorris/persisted.nvim",
+		lazy = false,
+		config = true,
+	},
 	-- Theme Picker
 	-- {
 	-- 	"vague2k/huez.nvim",
