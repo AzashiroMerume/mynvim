@@ -3,7 +3,9 @@ require("typescript-tools").setup({
 		local opts = { noremap = true, silent = true, buffer = bufnr }
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 		vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
-		vim.keymap.set("n", "S", vim.lsp.buf.signature_help, opts)
+		vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 	end,
 	handlers = {},
 	filetypes = {
