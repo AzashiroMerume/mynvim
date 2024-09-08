@@ -152,6 +152,15 @@ require("lazy").setup({
 	--	end,
 	--},
 
+	-- Display prettier diagnostic messages
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("tiny-inline-diagnostic").setup()
+		end,
+	},
+
 	-- Debug Adapter Protocol (DAP)
 	{ "mfussenegger/nvim-dap" }, -- Autocompletion
 	{ "hrsh7th/nvim-cmp" },
