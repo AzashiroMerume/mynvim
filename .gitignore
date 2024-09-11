@@ -1,2 +1,3 @@
 plugin/
 .env
+/node_modules
