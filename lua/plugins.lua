@@ -13,13 +13,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	-- Lazy.nvim can manage itself
-	{ "letieu/wezterm-move.nvim" }, -- Lualine
+	{ "letieu/wezterm-move.nvim" },
+	-- Lualine
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("lualine").setup()
-		end,
 	}, -- File icons
 	{ "nvim-tree/nvim-web-devicons" }, -- Color highlighter
 	{ "norcalli/nvim-colorizer.lua" }, -- Automatically close HTML tags
@@ -80,14 +78,25 @@ require("lazy").setup({
 	{
 		"FabianWirth/search.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
-	}, -- Move Line and Blocks
-	{ "fedepujol/move.nvim" }, -- Navigation
+	},
+	-- Move Line and Blocks
+	{ "fedepujol/move.nvim" },
+	-- Navigation
 	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { { "nvim-lua/plenary.nvim" } },
-	}, -- Syntax highlighting
-	{
+	},
+	{ -- highlighting for harpoon
+		"letieu/harpoon-lualine",
+		dependencies = {
+			{
+				"ThePrimeagen/harpoon",
+				branch = "harpoon2",
+			},
+		},
+	},
+	{ -- Syntax highlighting
 		"nvim-treesitter/nvim-treesitter",
 		build = function()
 			local ts_update = require("nvim-treesitter.install").update({
