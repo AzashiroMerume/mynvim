@@ -81,38 +81,38 @@ vim.g.airline_powerline_fonts = 1
 
 -- ctrlp settings
 vim.g.ctrlp_user_command = {
-	-- Exclude .git directory
-	"rg --files --hidden --iglob !.git",
+    -- Exclude .git directory
+    "rg --files --hidden --iglob !.git",
 }
 
 local function load_dotenv()
-	local ok, dotenv = pcall(require, "dotenv")
-	if ok then
-		dotenv.load()
-	end
+    local ok, dotenv = pcall(require, "dotenv")
+    if ok then
+        dotenv.load()
+    end
 end
 
 local previous_directory = nil
 
 function OpenConfigFolder(username)
-	load_dotenv()
-	previous_directory = vim.fn.getcwd()
+    load_dotenv()
+    previous_directory = vim.fn.getcwd()
 
-	if username == nil or username == "" then
-		username = os.getenv("USERNAME")
-	end
-	local path = "C:\\Users\\" .. username .. "\\AppData\\Local\\nvim"
-	vim.cmd("e " .. path)
+    if username == nil or username == "" then
+        username = os.getenv("USERNAME")
+    end
+    local path = "C:\\Users\\" .. username .. "\\AppData\\Local\\nvim"
+    vim.cmd("e " .. path)
 end
 
 function ReturnToPreviousDirectory()
-	if previous_directory then
-		vim.cmd("e " .. previous_directory)
-		previous_directory = nil
-	else
-		print("No previous directory saved!")
-		vim.cmd("echo 'No previous directory saved!'")
-	end
+    if previous_directory then
+        vim.cmd("e " .. previous_directory)
+        previous_directory = nil
+    else
+        print("No previous directory saved!")
+        vim.cmd("echo 'No previous directory saved!'")
+    end
 end
 
 vim.cmd("command! -nargs=? OpenConfig lua OpenConfigFolder(<f-args>)")
