@@ -8,6 +8,7 @@ vim.keymap.set("n", "<C-p>", function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
 
+-- Movement on harpooned buffers
 vim.keymap.set("n", "<C-u>", function()
     harpoon:list():select(1)
 end)
