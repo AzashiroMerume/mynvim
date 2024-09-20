@@ -1,15 +1,15 @@
 require("gitsigns").setup()
 
 require("git").setup({
-	default_mappings = true, -- NOTE: `quit_blame` and `blame_commit` are still merged to the keymaps even if `default_mappings = false`
+    default_mappings = true, -- NOTE: `quit_blame` and `blame_commit` are still merged to the keymaps even if `default_mappings = false`
 
-	keymaps = {
-		-- Open blame window
-		blame = "<Leader>gb",
-		-- Close blame window
-		quit_blame = "q",
-	},
-	winbar = false,
+    keymaps = {
+        -- Open blame window
+        blame = "<Leader>gb",
+        -- Close blame window
+        quit_blame = "q",
+    },
+    winbar = false,
 })
 
 -- Add the keymap for diffthis using gitsigns

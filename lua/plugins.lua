@@ -14,6 +14,17 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- Lazy.nvim can manage itself
     { "letieu/wezterm-move.nvim" },
+    -- Dashboard
+    {
+        "nvimdev/dashboard-nvim",
+        event = "VimEnter",
+        config = function()
+            require("dashboard").setup({
+                -- config
+            })
+        end,
+        dependencies = { { "nvim-tree/nvim-web-devicons" } },
+    },
     -- Lualine
     {
         "nvim-lualine/lualine.nvim",
