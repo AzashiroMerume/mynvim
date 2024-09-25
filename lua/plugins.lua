@@ -107,6 +107,12 @@ require("lazy").setup({
             },
         },
     },
+    -- Better marks
+    {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
     { -- Syntax highlighting
         "nvim-treesitter/nvim-treesitter",
         build = function()
