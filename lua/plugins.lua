@@ -113,6 +113,10 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = {},
     },
+    -- Move on line by unique letters
+    {
+        "jinh0/eyeliner.nvim",
+    },
     { -- Syntax highlighting
         "nvim-treesitter/nvim-treesitter",
         build = function()
