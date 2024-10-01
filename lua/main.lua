@@ -6,6 +6,7 @@ vim.o.guifont = "UbuntuSansMono\\ NF:h11"
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 vim.o.wrap = false
+vim.loader.enable()
 
 -- General Settings
 vim.cmd([[
