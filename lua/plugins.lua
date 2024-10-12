@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     -- Lazy.nvim can manage itself
-    { "letieu/wezterm-move.nvim" },
+    { "letieu/wezterm-move.nvim", event = "VeryLazy" },
     -- Dashboard
     {
         "nvimdev/dashboard-nvim",
@@ -23,19 +23,25 @@ require("lazy").setup({
                 -- config
             })
         end,
-        dependencies = { { "nvim-tree/nvim-web-devicons" } },
+        dependencies = { { "nvim-tree/nvim-web-devicons", event = "VeryLazy" } },
     },
     -- Lualine
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    }, -- File icons
-    { "nvim-tree/nvim-web-devicons" }, -- Color highlighter
-    { "norcalli/nvim-colorizer.lua" }, -- Automatically close HTML tags
-    { "alvan/vim-closetag" }, -- File explorer
+        event = "VeryLazy",
+        dependencies = { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
+    },
+    -- File icons
+    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
+    -- Color highlighter
+    { "norcalli/nvim-colorizer.lua", event = "VeryLazy" },
+    -- Automatically close HTML tags
+    { "alvan/vim-closetag", event = "VeryLazy" },
+    -- File explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
+        event = "VeryLazy",
         dependencies = {
             "nvim-lua/plenary.nvim", -- Common utilities
             "nvim-tree/nvim-web-devicons", -- File icons
@@ -61,49 +67,55 @@ require("lazy").setup({
                 end,
             },
         },
-    }, -- Git integration
-    { "lewis6991/gitsigns.nvim" },
-    { "dinhhuy258/git.nvim" },
+    },
+    -- Git integration
+    { "lewis6991/gitsigns.nvim", event = "VeryLazy" },
+    { "dinhhuy258/git.nvim", event = "VeryLazy" },
     {
         "NeogitOrg/neogit",
+        event = "VeryLazy",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "sindrets/diffview.nvim",
-
             "nvim-telescope/telescope.nvim",
         },
         config = true,
     },
 
     -- Package management
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
+    { "williamboman/mason.nvim", event = "VeryLazy" },
+    { "williamboman/mason-lspconfig.nvim", event = "VeryLazy" },
 
     -- Fuzzy finder and picker
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        event = "VeryLazy",
+        dependencies = { { "nvim-lua/plenary.nvim", event = "VeryLazy" } },
     },
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make", event = "VeryLazy" },
     {
         "FabianWirth/search.nvim",
+        event = "VeryLazy",
         dependencies = { "nvim-telescope/telescope.nvim" },
     },
     -- Move Line and Blocks
-    { "fedepujol/move.nvim" },
+    { "fedepujol/move.nvim", event = "VeryLazy" },
     -- Navigation
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        event = "VeryLazy",
+        dependencies = { { "nvim-lua/plenary.nvim", event = "VeryLazy" } },
     },
     { -- highlighting for harpoon
         "letieu/harpoon-lualine",
+        event = "VeryLazy",
         dependencies = {
             {
                 "ThePrimeagen/harpoon",
                 branch = "harpoon2",
+                event = "VeryLazy",
             },
         },
     },
@@ -116,8 +128,10 @@ require("lazy").setup({
     -- Move on line by unique letters
     {
         "jinh0/eyeliner.nvim",
+        event = "VeryLazy",
     },
-    { -- Syntax highlighting
+    -- Syntax highlighting
+    {
         "nvim-treesitter/nvim-treesitter",
         build = function()
             local ts_update = require("nvim-treesitter.install").update({
@@ -125,63 +139,50 @@ require("lazy").setup({
             })
             ts_update()
         end,
+        event = "VeryLazy",
     },
-    -- Lua
+    -- Lua session management
     {
         "olimorris/persisted.nvim",
         lazy = false,
         config = true,
     },
     -- Theme Picker
-    -- {
-    -- 	"vague2k/huez.nvim",
-    -- 	-- if you want registry related features, uncomment this
-    -- 	-- import = "huez-manager.import"
-    -- 	branch = "stable",
-    -- 	event = "UIEnter",
-    -- 	config = function()
-    -- 		require("huez").setup({})
-    -- 	end,
-    -- },
-    -- Theme Picker
-    { "zaldih/themery.nvim" },
+    { "zaldih/themery.nvim", event = "VeryLazy" },
     -- Themes
     { "azashiromerume/nagisa.nvim", lazy = false, priority = 1000 },
-    { "dasupradyumna/midnight.nvim" },
-    { "folke/zen-mode.nvim" },
-    { "folke/twilight.nvim" }, -- Buffer line
+    { "dasupradyumna/midnight.nvim", event = "VeryLazy" },
+    { "folke/zen-mode.nvim", event = "VeryLazy" },
+    { "folke/twilight.nvim", event = "VeryLazy" },
+    -- Buffer line
     {
         "akinsho/bufferline.nvim",
         version = "*",
+        event = "VeryLazy",
         dependencies = "nvim-tree/nvim-web-devicons",
     },
-    { "famiu/bufdelete.nvim" }, -- Tab deletion control for bufferline
+    { "famiu/bufdelete.nvim", event = "VeryLazy" },
     -- Linting
-    { "mfussenegger/nvim-lint" }, -- Formatting
-    { "stevearc/conform.nvim" }, -- Autopairs
+    { "mfussenegger/nvim-lint", event = "VeryLazy" },
+    -- Formatting
+    { "stevearc/conform.nvim", event = "VeryLazy" },
+    -- Autopairs
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup()
         end,
-    }, -- LSP configuration
-    { "neovim/nvim-lspconfig" },
+    },
+    -- LSP configuration
+    { "neovim/nvim-lspconfig", event = "VeryLazy" },
     {
         "j-hui/fidget.nvim",
+        event = "VeryLazy",
         config = function()
             require("fidget").setup()
         end,
     },
-
-    ---- AI suggestion
-    --{
-    --	"supermaven-inc/supermaven-nvim",
-    --	config = function()
-    --		require("supermaven-nvim").setup({})
-    --	end,
-    --},
-
     -- Display prettier diagnostic messages
     {
         "rachartier/tiny-inline-diagnostic.nvim",
@@ -190,10 +191,10 @@ require("lazy").setup({
             require("tiny-inline-diagnostic").setup()
         end,
     },
-
     -- Debug Adapter Protocol (DAP)
-    { "mfussenegger/nvim-dap" }, -- Autocompletion
-    { "hrsh7th/nvim-cmp" },
+    { "mfussenegger/nvim-dap", event = "VeryLazy" },
+    -- Autocompletion
+    { "hrsh7th/nvim-cmp", event = "VeryLazy" },
     {
         "hrsh7th/cmp-nvim-lsp",
         "saadparwaiz1/cmp_luasnip",
@@ -201,32 +202,39 @@ require("lazy").setup({
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-buffer",
         "onsails/lspkind.nvim",
+        event = "VeryLazy",
         dependencies = { "hrsh7th/nvim-cmp" },
     },
+    -- Snippet engine
     {
         "L3MON4D3/LuaSnip",
         version = "v2.3.0",
+        event = "VeryLazy",
     },
-    { "hrsh7th/vim-vsnip" }, -- Snippet engine
+    { "hrsh7th/vim-vsnip", event = "VeryLazy" },
     -- Rust support
-    { "rust-lang/rust.vim" }, -- Syntax highlighting, formatting, etc.
-    { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" } }, -- LSP integration
+    { "rust-lang/rust.vim", event = "VeryLazy" },
+    { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" }, event = "VeryLazy" },
     -- TypeScript support
     {
         "pmizio/typescript-tools.nvim",
+        event = "VeryLazy",
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
         opts = {},
     },
-    { "leafgarland/typescript-vim" }, -- Highlighting
-
+    { "leafgarland/typescript-vim", event = "VeryLazy" },
     -- Nuxt.js components navigation
-    { "rushjs1/nuxt-goto.nvim" }, -- Commands work with Russian keyboard layout
-    { "powerman/vim-plugin-ruscmd" }, -- Markdown preview
+    { "rushjs1/nuxt-goto.nvim", event = "VeryLazy" },
+    -- Commands work with Russian keyboard layout
+    { "powerman/vim-plugin-ruscmd", event = "VeryLazy" },
+    -- Markdown preview
     {
         "iamcco/markdown-preview.nvim",
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-    }, -- Devicons
-    { "ryanoasis/vim-devicons" },
+        event = "VeryLazy",
+    },
+    -- Devicons
+    { "ryanoasis/vim-devicons", event = "VeryLazy" },
 })
