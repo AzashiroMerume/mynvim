@@ -17,6 +17,7 @@ conform.setup({
         lua = { "stylua" },
         dart = { "dart_format" },
         rust = { "rustfmt" },
+        gdscript = { "gdformat" },
     },
 })
 

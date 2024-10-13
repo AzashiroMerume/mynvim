@@ -24,11 +24,22 @@ vim.cmd([[
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
 
--- File Saving
-vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
+-- Specific settings for GDScript files (used by Godot)
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "gdscript",
+    callback = function()
+        vim.opt_local.expandtab = true
+        vim.opt_local.tabstop = 4
+        vim.opt_local.shiftwidth = 4
+        vim.opt_local.softtabstop = 4
+    end,
+})
 
 -- Theme
 vim.cmd.colorscheme("EndOfTheWorld")
+
+-- File Saving
+vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
 
 -- Split creation
 vim.api.nvim_set_keymap("n", "<leader>vs", ":vsplit<CR>", { noremap = true, silent = true })

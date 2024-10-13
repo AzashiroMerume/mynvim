@@ -28,7 +28,6 @@ require("lazy").setup({
     -- Lualine
     {
         "nvim-lualine/lualine.nvim",
-        event = "VeryLazy",
         dependencies = { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
     },
     -- File icons
@@ -105,17 +104,14 @@ require("lazy").setup({
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        event = "VeryLazy",
-        dependencies = { { "nvim-lua/plenary.nvim", event = "VeryLazy" } },
+        dependencies = { { "nvim-lua/plenary.nvim" } },
     },
     { -- highlighting for harpoon
         "letieu/harpoon-lualine",
-        event = "VeryLazy",
         dependencies = {
             {
                 "ThePrimeagen/harpoon",
                 branch = "harpoon2",
-                event = "VeryLazy",
             },
         },
     },
@@ -193,8 +189,11 @@ require("lazy").setup({
     },
     -- Debug Adapter Protocol (DAP)
     { "mfussenegger/nvim-dap", event = "VeryLazy" },
-    -- Autocompletion
-    { "hrsh7th/nvim-cmp", event = "VeryLazy" },
+    -- Completion setup
+    {
+        "hrsh7th/nvim-cmp",
+        event = "BufReadPre",
+    },
     {
         "hrsh7th/cmp-nvim-lsp",
         "saadparwaiz1/cmp_luasnip",
@@ -202,14 +201,13 @@ require("lazy").setup({
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-buffer",
         "onsails/lspkind.nvim",
-        event = "VeryLazy",
+        event = "BufReadPre",
         dependencies = { "hrsh7th/nvim-cmp" },
     },
-    -- Snippet engine
     {
         "L3MON4D3/LuaSnip",
         version = "v2.3.0",
-        event = "VeryLazy",
+        event = "BufReadPre",
     },
     { "hrsh7th/vim-vsnip", event = "VeryLazy" },
     -- Rust support
