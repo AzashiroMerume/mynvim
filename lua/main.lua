@@ -24,17 +24,6 @@ vim.cmd([[
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
 
--- Specific settings for GDScript files (used by Godot)
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "gdscript",
-    callback = function()
-        vim.opt_local.expandtab = true
-        vim.opt_local.tabstop = 4
-        vim.opt_local.shiftwidth = 4
-        vim.opt_local.softtabstop = 4
-    end,
-})
-
 -- Theme
 vim.cmd.colorscheme("EndOfTheWorld")
 
@@ -131,3 +120,25 @@ vim.cmd("command! -nargs=? OpenConfig lua OpenConfigFolder(<f-args>)")
 vim.cmd("command! ReturnToPreviousDirectory lua ReturnToPreviousDirectory()")
 vim.api.nvim_set_keymap("n", "<leader>oc", ":OpenConfig<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ob", ":ReturnToPreviousDirectory<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "gdscript",
+    callback = function()
+        vim.opt_local.expandtab = true
+        vim.opt_local.tabstop = 4
+        vim.opt_local.shiftwidth = 4
+        vim.opt_local.softtabstop = 4
+    end,
+})
+
+local function get_godot_address()
+    load_dotenv()
+    return os.getenv("GODOT_ADDRESS") or "127.0.0.1:55432" -- Default to 127.0.0.1 if not found
+end
+
+local gdproject = io.open(vim.fn.getcwd() .. "/project.godot", "r")
+if gdproject then
+    io.close(gdproject)
+    local godot_address = get_godot_address()
+    vim.fn.serverstart(godot_address)
+end
