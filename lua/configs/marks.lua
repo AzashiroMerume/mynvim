@@ -1,13 +1,3 @@
-local function jump_to_mark()
-    -- Get the next character input
-    local mark = vim.fn.getchar()
-    mark = string.char(mark) -- Convert from number to character
-    vim.cmd('execute "normal! `' .. mark .. '"') -- Jump to the mark
-end
-
--- Map the function to the '"' key in normal mode
-vim.keymap.set("n", '"', jump_to_mark, { noremap = true, silent = true })
-
 require("marks").setup({
     -- whether to map keybinds or not. default true
     default_mappings = true,
