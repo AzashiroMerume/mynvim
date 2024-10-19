@@ -64,16 +64,24 @@ vim.api.nvim_set_keymap("n", "<leader>qp", ":cprev<CR>", { noremap = true, silen
 vim.api.nvim_set_keymap("n", "<leader>ln", ":lnext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>lp", ":lprev<CR>", { noremap = true, silent = true })
 
--- Terminal configuration
-vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>t", ":term<CR>", { noremap = true, silent = true })
-
 -- Buffer navigation/tab navigation
 vim.api.nvim_set_keymap("n", "<leader>tn", ":tabnew<CR>", { noremap = true })
 
 -- Switch to next buffer/tab
 vim.api.nvim_set_keymap("n", "<leader>n", ":bnext<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>p", ":bprev<CR>", { noremap = true })
+
+-- Function to adjust font size
+local function change_font_size(delta)
+    local current_font = vim.o.guifont
+    local name, size = string.match(current_font, "([^:]+):h(%d+)")
+    size = tonumber(size) + delta
+    vim.o.guifont = name .. ":h" .. size
+end
+
+-- Key mappings to zoom in and out
+vim.api.nvim_set_keymap("n", "<C-=>", ":lua change_font_size(1)<CR>", { noremap = true, silent = true }) -- Zoom in
+vim.api.nvim_set_keymap("n", "<C-->", ":lua change_font_size(-1)<CR>", { noremap = true, silent = true }) -- Zoom out
 
 -- Clipboard settings
 vim.opt.clipboard:append("unnamedplus")
