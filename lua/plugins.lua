@@ -12,12 +12,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- Lazy.nvim can manage itself
+    -- Wezterm moving between splits
     { "letieu/wezterm-move.nvim", event = "VeryLazy" },
     -- Dashboard
     {
         "nvimdev/dashboard-nvim",
-        event = "VimEnter",
         config = function()
             require("dashboard").setup({
                 -- config
