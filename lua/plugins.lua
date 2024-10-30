@@ -92,6 +92,7 @@ require("lazy").setup({
         dependencies = { { "nvim-lua/plenary.nvim", event = "VeryLazy" } },
     },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make", event = "VeryLazy" },
+    { "nvim-telescope/telescope-project.nvim", event = "VeryLazy" },
     {
         "FabianWirth/search.nvim",
         event = "VeryLazy",

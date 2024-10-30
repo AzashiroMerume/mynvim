@@ -21,6 +21,7 @@ vim.cmd([[
     set updatetime=650
     let mapleader=" "
     inoremap jk <Esc>
+    vnoremap vjk <Esc>
     tnoremap jk <C-\><C-n>
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
