@@ -72,6 +72,13 @@ vim.api.nvim_set_keymap("n", "<leader>tn", ":tabnew<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>n", ":bnext<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>p", ":bprev<CR>", { noremap = true })
 
+-- Replace character in normal mode without yanking
+vim.api.nvim_set_keymap("n", "r", '"_r', { noremap = true }) -- Use black hole register to replace a character
+
+-- Replace selection in visual mode without yanking
+vim.api.nvim_set_keymap("v", "c", '"_c', { noremap = true }) -- Change selected text without yanking
+vim.api.nvim_set_keymap("v", "d", '"_d', { noremap = true }) -- Delete selected text without yanking
+
 -- Function to adjust font size
 local function change_font_size(delta)
     local current_font = vim.o.guifont
