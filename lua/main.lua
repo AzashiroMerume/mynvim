@@ -18,7 +18,7 @@ vim.cmd([[
     set shiftwidth=2
     set expandtab
     set mouse=a
-    set updatetime=650
+    set updatetime=350
     let mapleader=" "
     inoremap jk <Esc>
     vnoremap vjk <Esc>
