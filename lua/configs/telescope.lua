@@ -1,4 +1,6 @@
 local builtin = require("telescope.builtin")
+local telescope = require("telescope")
+
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
@@ -6,7 +8,17 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 vim.keymap.set("n", "<leader>fc", builtin.git_status, {})
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, {})
 
-require("telescope").setup({ extensions = { fzf = {} } })
+telescope.setup({
+    extensions = {
+        fzf = {},
+        project = {},
+    },
+})
+
+-- Keybinding to open Telescope project extension
+vim.keymap.set("n", "<leader>fp", function()
+    telescope.extensions.project.project()
+end, {})
 
 -- Keybinding to open the search plugin's Telescope tabs
 vim.keymap.set("n", "<leader>tt", function()
@@ -33,6 +45,6 @@ require("search").setup({
     },
 })
 
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("project")
-require("telescope").load_extension("persisted")
+telescope.load_extension("fzf")
+telescope.load_extension("project")
+telescope.load_extension("persisted")
