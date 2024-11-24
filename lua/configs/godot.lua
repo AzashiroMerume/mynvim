@@ -5,13 +5,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.tabstop = 4
         vim.opt_local.shiftwidth = 4
         vim.opt_local.softtabstop = 4
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePre", "TextYankPost" }, {
-    pattern = "*.gd",
-    callback = function()
-        vim.cmd("retab!")
+        vim.opt_local.indentexpr = ""
     end,
 })
 
