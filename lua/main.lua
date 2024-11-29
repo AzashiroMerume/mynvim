@@ -33,8 +33,8 @@ vim.cmd.colorscheme("EndOfTheWorld")
 vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
 
 -- Split creation
-vim.api.nvim_set_keymap("n", "<leader>vs", ":vsplit<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>hs", ":split<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dv", ":vsplit<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>dh", ":split<CR>", { noremap = true, silent = true })
 
 -- Close split
 vim.api.nvim_set_keymap("n", "<leader>cs", ":close<CR>", { noremap = true, silent = true })
