@@ -12,8 +12,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Function to load Godot address
 local function get_godot_address()
-    load_dotenv()
-    return os.getenv("GODOT_ADDRESS") or "127.0.0.1:55432"
+    local envs = load_env()
+    return envs["GODOT_ADDRESS"] or "127.0.0.1:55432"
 end
 
 -- Function to check if address is in use

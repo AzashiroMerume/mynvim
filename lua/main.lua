@@ -103,24 +103,33 @@ vim.g.ctrlp_user_command = {
     "rg --files --hidden --iglob !.git",
 }
 
-function load_dotenv()
-    local ok, dotenv = pcall(require, "dotenv")
-    if ok then
-        dotenv.load()
+function load_env()
+    local env = {}
+    local env_file_path = vim.fn.stdpath("config") .. "/.env"
+
+    local file = io.open(env_file_path, "r")
+    if not file then
+        print("Error: .env file not found at " .. env_file_path)
+        return env
     end
+
+    for line in file:lines() do
+        if line ~= "" and line:sub(1, 1) ~= "#" then
+            local key, value = line:match("^(%S+)=(%S+)$")
+            if key and value then
+                env[key] = value
+            end
+        end
+    end
+    file:close()
+    return env
 end
 
 local previous_directory = nil
 
-function OpenConfigFolder(username)
-    load_dotenv()
-    previous_directory = vim.fn.getcwd()
-
-    if username == nil or username == "" then
-        username = os.getenv("USERNAME")
-    end
-    local path = "C:\\Users\\" .. username .. "\\AppData\\Local\\nvim"
-    vim.cmd("e " .. path)
+function OpenConfigFolder()
+    local config_path = vim.fn.stdpath("config")
+    vim.cmd("e " .. config_path)
 end
 
 function ReturnToPreviousDirectory()
@@ -133,7 +142,7 @@ function ReturnToPreviousDirectory()
     end
 end
 
-vim.cmd("command! -nargs=? OpenConfig lua OpenConfigFolder(<f-args>)")
+vim.cmd("command! OpenConfig lua OpenConfigFolder()")
 vim.cmd("command! ReturnToPreviousDirectory lua ReturnToPreviousDirectory()")
 vim.api.nvim_set_keymap("n", "<leader>oc", ":OpenConfig<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ob", ":ReturnToPreviousDirectory<CR>", { noremap = true, silent = true })
