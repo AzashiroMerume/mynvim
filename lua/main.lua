@@ -128,6 +128,8 @@ end
 local previous_directory = nil
 
 function OpenConfigFolder()
+    previous_directory = vim.fn.getcwd()
+
     local config_path = vim.fn.stdpath("config")
     vim.cmd("e " .. config_path)
 end
