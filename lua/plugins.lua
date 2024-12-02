@@ -15,11 +15,11 @@ require("lazy").setup({
     -- Wezterm moving between splits
     { "letieu/wezterm-move.nvim", event = "VeryLazy" },
     -- Dashboard
-    {
-        "nvimdev/dashboard-nvim",
-        event = "VimEnter",
-        dependencies = { { "nvim-tree/nvim-web-devicons" } },
-    },
+    --{
+    --    "nvimdev/dashboard-nvim",
+    --    event = "VimEnter",
+    --    dependencies = { { "nvim-tree/nvim-web-devicons" } },
+    --},
     -- Lualine
     {
         "nvim-lualine/lualine.nvim",
