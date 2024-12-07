@@ -167,7 +167,21 @@ require("lazy").setup({
         end,
     },
     -- LSP configuration
-    { "neovim/nvim-lspconfig", event = "VeryLazy" },
+    {
+        "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        dependencies = {
+            "folke/lazydev.nvim",
+            ft = "lua",
+            opts = {
+                library = {
+                    -- See the configuration section for more details
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            },
+        },
+    },
     {
         "j-hui/fidget.nvim",
         event = "VeryLazy",
@@ -189,6 +203,13 @@ require("lazy").setup({
     {
         "hrsh7th/nvim-cmp",
         event = "BufReadPre",
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
+            })
+        end,
     },
     {
         "hrsh7th/cmp-nvim-lsp",

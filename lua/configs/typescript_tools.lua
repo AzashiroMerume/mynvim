@@ -28,7 +28,7 @@ require("typescript-tools").setup({
             "@vue/language-server",
             "@vue/typescript-plugin",
         },
-        tsserver_max_memory = "2024",
+        tsserver_max_memory = 2024,
         tsserver_format_options = {},
         tsserver_file_preferences = {
             includeInlayParameterNameHints = "all",
