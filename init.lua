@@ -1,6 +1,5 @@
 require("plugins")
 require("main")
-require("configs.completion")
 require("configs.lspconfig")
 require("configs.telescope")
 require("configs.mason")
