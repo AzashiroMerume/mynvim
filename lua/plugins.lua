@@ -100,7 +100,8 @@ require("lazy").setup({
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        event = "VeryLazy",
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     { -- highlighting for harpoon
         "letieu/harpoon-lualine",
@@ -133,16 +134,10 @@ require("lazy").setup({
         end,
         event = "VeryLazy",
     },
-    -- Lua session management
-    {
-        "olimorris/persisted.nvim",
-        lazy = false,
-        config = true,
-    },
     -- Theme Picker
     { "zaldih/themery.nvim", event = "VeryLazy" },
     -- Themes
-    { "azashiromerume/nagisa.nvim", lazy = false, priority = 1000 },
+    { "azashiromerume/nagisa.nvim" },
     { "dasupradyumna/midnight.nvim", event = "VeryLazy" },
     { "folke/zen-mode.nvim", event = "VeryLazy" },
     { "folke/twilight.nvim", event = "VeryLazy" },
@@ -161,7 +156,6 @@ require("lazy").setup({
     -- Autopairs
     {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup()
         end,
@@ -187,6 +181,7 @@ require("lazy").setup({
     },
     {
         "j-hui/fidget.nvim",
+        event = "VeryLazy",
         config = function()
             require("fidget").setup()
         end,
@@ -205,6 +200,7 @@ require("lazy").setup({
     {
         "saghen/blink.cmp",
         dependencies = { "rafamadriz/friendly-snippets", { "L3MON4D3/LuaSnip", version = "v2.*" } },
+        event = "VeryLazy",
         version = "v0.*",
 
         opts = {
@@ -274,8 +270,6 @@ require("lazy").setup({
         opts = {},
     },
     { "leafgarland/typescript-vim", event = "VeryLazy" },
-    -- Nuxt.js components navigation
-    { "rushjs1/nuxt-goto.nvim", event = "VeryLazy" },
     -- Commands work with Russian keyboard layout
     { "powerman/vim-plugin-ruscmd", event = "VeryLazy" },
     -- Markdown preview
@@ -288,4 +282,16 @@ require("lazy").setup({
     },
     -- Devicons
     { "ryanoasis/vim-devicons", event = "VeryLazy" },
+
+    -- Disable some rtp plugins
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })
