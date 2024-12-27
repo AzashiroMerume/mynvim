@@ -1,14 +1,6 @@
 require("typescript-tools").setup({
-    on_attach = function(client, bufnr)
+    on_attach = function(client)
         client.server_capabilities.semanticTokensProvider = false
-
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
     end,
     handlers = {},
     filetypes = {

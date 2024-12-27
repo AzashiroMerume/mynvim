@@ -22,6 +22,6 @@ conform.setup({
 })
 
 -- Map a key combination to format using Conform (optional)
-vim.keymap.set({ "n", "v" }, "<S-A-f>", function()
+vim.keymap.set({ "n", "v" }, "<leader>=", function()
     conform.format({ lsp_fallback = true, async = true, timeout_ms = 2000 })
 end, { desc = "Format file or range (in visual mode)" })
