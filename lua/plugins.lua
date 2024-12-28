@@ -100,7 +100,8 @@ require("lazy").setup({
     {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        event = "VeryLazy",
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
     { -- highlighting for harpoon
         "letieu/harpoon-lualine",
@@ -133,16 +134,10 @@ require("lazy").setup({
         end,
         event = "VeryLazy",
     },
-    -- Lua session management
-    {
-        "olimorris/persisted.nvim",
-        lazy = false,
-        config = true,
-    },
     -- Theme Picker
     { "zaldih/themery.nvim", event = "VeryLazy" },
     -- Themes
-    { "azashiromerume/nagisa.nvim", lazy = false, priority = 1000 },
+    { "azashiromerume/nagisa.nvim" },
     { "dasupradyumna/midnight.nvim", event = "VeryLazy" },
     { "folke/zen-mode.nvim", event = "VeryLazy" },
     { "folke/twilight.nvim", event = "VeryLazy" },
@@ -161,7 +156,6 @@ require("lazy").setup({
     -- Autopairs
     {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup()
         end,
@@ -171,13 +165,16 @@ require("lazy").setup({
         "neovim/nvim-lspconfig",
         event = "VeryLazy",
         dependencies = {
-            "folke/lazydev.nvim",
-            ft = "lua",
-            opts = {
-                library = {
-                    -- See the configuration section for more details
-                    -- Load luvit types when the `vim.uv` word is found
-                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            "saghen/blink.cmp",
+            {
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = {
+                    library = {
+                        -- See the configuration section for more details
+                        -- Load luvit types when the `vim.uv` word is found
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    },
                 },
             },
         },
@@ -199,34 +196,69 @@ require("lazy").setup({
     },
     -- Debug Adapter Protocol (DAP)
     { "mfussenegger/nvim-dap", event = "VeryLazy" },
-    -- Completion setup
+    -- New Completion Setup (blink-cmp)
     {
-        "hrsh7th/nvim-cmp",
-        event = "BufReadPre",
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
-            })
-        end,
+        "saghen/blink.cmp",
+        dependencies = { "rafamadriz/friendly-snippets", { "L3MON4D3/LuaSnip", version = "v2.*" } },
+        event = "VeryLazy",
+        version = "v0.*",
+
+        opts = {
+            keymap = { preset = "default" },
+
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = "mono",
+            },
+
+            signature = { enabled = true },
+            snippets = {
+                expand = function(snippet)
+                    require("luasnip").lsp_expand(snippet)
+                end,
+                active = function(filter)
+                    if filter and filter.direction then
+                        return require("luasnip").jumpable(filter.direction)
+                    end
+                    return require("luasnip").in_snippet()
+                end,
+                jump = function(direction)
+                    require("luasnip").jump(direction)
+                end,
+            },
+            sources = {
+                default = { "lsp", "path", "luasnip", "buffer" },
+            },
+        },
     },
-    {
-        "hrsh7th/cmp-nvim-lsp",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-vsnip",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-buffer",
-        "onsails/lspkind.nvim",
-        event = "BufReadPre",
-        dependencies = { "hrsh7th/nvim-cmp" },
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        version = "v2.3.0",
-        event = "BufReadPre",
-    },
-    { "hrsh7th/vim-vsnip", event = "VeryLazy" },
+    -- Completion setup (old)
+    --{
+    --    "hrsh7th/nvim-cmp",
+    --    event = "BufReadPre",
+    --    opts = function(_, opts)
+    --        opts.sources = opts.sources or {}
+    --        table.insert(opts.sources, {
+    --            name = "lazydev",
+    --            group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
+    --        })
+    --    end,
+    --},
+    --{
+    --    "hrsh7th/cmp-nvim-lsp",
+    --    "saadparwaiz1/cmp_luasnip",
+    --    "hrsh7th/cmp-vsnip",
+    --    "hrsh7th/cmp-path",
+    --    "hrsh7th/cmp-buffer",
+    --    "onsails/lspkind.nvim",
+    --    event = "BufReadPre",
+    --    dependencies = { "hrsh7th/nvim-cmp" },
+    --},
+    --{
+    --    "L3MON4D3/LuaSnip",
+    --    version = "v2.3.0",
+    --    event = "BufReadPre",
+    --},
+    --{ "hrsh7th/vim-vsnip", event = "VeryLazy" },
     -- Rust support
     { "rust-lang/rust.vim", event = "VeryLazy" },
     { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" }, event = "VeryLazy" },
@@ -238,8 +270,6 @@ require("lazy").setup({
         opts = {},
     },
     { "leafgarland/typescript-vim", event = "VeryLazy" },
-    -- Nuxt.js components navigation
-    { "rushjs1/nuxt-goto.nvim", event = "VeryLazy" },
     -- Commands work with Russian keyboard layout
     { "powerman/vim-plugin-ruscmd", event = "VeryLazy" },
     -- Markdown preview
@@ -252,4 +282,16 @@ require("lazy").setup({
     },
     -- Devicons
     { "ryanoasis/vim-devicons", event = "VeryLazy" },
+
+    -- Disable some rtp plugins
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })

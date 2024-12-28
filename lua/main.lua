@@ -78,14 +78,6 @@ vim.api.nvim_set_keymap("n", "r", '"_r', { noremap = true }) -- Use black hole r
 vim.api.nvim_set_keymap("v", "c", '"_c', { noremap = true }) -- Change selected text without yanking
 vim.api.nvim_set_keymap("v", "d", '"_d', { noremap = true }) -- Delete selected text without yanking
 
--- Function to adjust font size
-local function change_font_size(delta)
-    local current_font = vim.o.guifont
-    local name, size = string.match(current_font, "([^:]+):h(%d+)")
-    size = tonumber(size) + delta
-    vim.o.guifont = name .. ":h" .. size
-end
-
 -- Key mappings to zoom in and out
 vim.api.nvim_set_keymap("n", "<C-=>", ":lua change_font_size(1)<CR>", { noremap = true, silent = true }) -- Zoom in
 vim.api.nvim_set_keymap("n", "<C-->", ":lua change_font_size(-1)<CR>", { noremap = true, silent = true }) -- Zoom out
@@ -102,7 +94,7 @@ vim.g.ctrlp_user_command = {
     "rg --files --hidden --iglob !.git",
 }
 
-function load_env()
+function Load_env()
     local env = {}
     local env_file_path = vim.fn.stdpath("config") .. "/.env"
 

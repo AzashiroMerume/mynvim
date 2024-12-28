@@ -1,4 +1,3 @@
--- FileType autocmd for GDScript settings
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "gdscript",
     callback = function()
@@ -10,13 +9,11 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Function to load Godot address
 local function get_godot_address()
-    local envs = load_env()
+    local envs = Load_env()
     return envs["GODOT_ADDRESS"] or "127.0.0.1:55432"
 end
 
--- Function to check if address is in use
 local function is_address_in_use(address)
     local ip, port = address:match("(.+):(%d+)")
     local command
@@ -31,13 +28,12 @@ local function is_address_in_use(address)
     return result ~= ""
 end
 
--- Function to start Godot connection if in a Godot project
-local function start_godot_connection()
+local function start_godot_connection(address)
     local godot_project_file = vim.fn.getcwd() .. "/project.godot"
     local gdproject = io.open(godot_project_file, "r")
     if gdproject then
         io.close(gdproject)
-        local godot_address = get_godot_address()
+        local godot_address = address or get_godot_address()
         if is_address_in_use(godot_address) then
             print("Address " .. godot_address .. " is already in use. Aborting connection.")
             return
@@ -47,10 +43,23 @@ local function start_godot_connection()
     end
 end
 
--- Run connection check on startup
-start_godot_connection()
+local function stop_godot_connection()
+    local godot_address = get_godot_address()
+    vim.fn.serverstop(godot_address)
+    print("Godot connection stopped at " .. godot_address)
+end
 
--- Autocmd for when the working directory changes
+vim.api.nvim_create_user_command("StartGodotConnection", function(opts)
+    local address = opts.args ~= "" and opts.args or nil
+    start_godot_connection(address)
+end, { nargs = "?" })
+vim.api.nvim_create_user_command("StopGodotConnection", stop_godot_connection, {})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        start_godot_connection()
+    end,
+})
 vim.api.nvim_create_autocmd("DirChanged", {
     callback = function()
         start_godot_connection()
