@@ -31,6 +31,15 @@ require("lazy").setup({
     { "norcalli/nvim-colorizer.lua", event = "VeryLazy" },
     -- Automatically close HTML tags
     { "alvan/vim-closetag", event = "VeryLazy" },
+    -- Surround selections
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({})
+        end,
+    },
     -- File explorer
     {
         "nvim-neo-tree/neo-tree.nvim",
