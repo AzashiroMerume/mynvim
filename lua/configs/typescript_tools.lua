@@ -1,6 +1,6 @@
 require("typescript-tools").setup({
     on_attach = function(client)
-        client.server_capabilities.semanticTokensProvider = false
+        client.server_capabilities.semanticTokensProvider = nil
     end,
     handlers = {},
     filetypes = {
