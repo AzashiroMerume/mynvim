@@ -8,6 +8,11 @@ end
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client and client.server_capabilities and client.server_capabilities.semanticTokensProvider then
+            client.server_capabilities.semanticTokensProvider = nil
+        end
+
         local bufnr = ev.buf
         buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
         buf_map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
