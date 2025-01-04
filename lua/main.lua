@@ -26,6 +26,14 @@ vim.cmd([[
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 ]])
 
+vim.api.nvim_create_autocmd("DirChanged", {
+    callback = function()
+        local cwd = vim.fn.getcwd()
+        local cwd_escaped = cwd:gsub("\\", "\\\\")
+        vim.cmd('silent! call chansend(v:stderr, "\\033]7;file:///' .. cwd_escaped .. '\\007")')
+    end,
+})
+
 -- Theme
 vim.cmd.colorscheme("EndOfTheWorld")
 
