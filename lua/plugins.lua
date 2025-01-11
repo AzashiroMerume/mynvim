@@ -40,36 +40,10 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end,
     },
-    -- File explorer
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        event = "VeryLazy",
-        dependencies = {
-            "nvim-lua/plenary.nvim", -- Common utilities
-            "nvim-tree/nvim-web-devicons", -- File icons
-            "MunifTanjim/nui.nvim", -- UI components
-            {
-                "s1n7ax/nvim-window-picker",
-                version = "2.*",
-                config = function()
-                    require("window-picker").setup({
-                        filter_rules = {
-                            include_current_win = false,
-                            autoselect_one = true,
-                            bo = {
-                                filetype = {
-                                    "neo-tree",
-                                    "neo-tree-popup",
-                                    "notify",
-                                },
-                                buftype = { "terminal", "quickfix" },
-                            },
-                        },
-                    })
-                end,
-            },
-        },
+        "stevearc/oil.nvim",
+        -- Optional dependencies
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     -- Git integration
     { "lewis6991/gitsigns.nvim", event = "VeryLazy" },
