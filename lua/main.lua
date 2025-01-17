@@ -42,10 +42,17 @@ vim.api.nvim_set_keymap("n", "<C-s>", ":w<CR>", { noremap = true })
 
 -- Split creation
 vim.api.nvim_set_keymap("n", "<leader>dv", ":vsplit<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>dh", ":split<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>db", ":split<CR>", { noremap = true, silent = true })
 
 -- Close split
-vim.api.nvim_set_keymap("n", "<leader>cs", ":close<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>de", ":close<CR>", { noremap = true, silent = true })
+
+-- Resize splits
+vim.api.nvim_set_keymap("n", "<leader>dk", ":resize +5<CR>", { noremap = true, silent = true }) -- Increase horizontal split height
+vim.api.nvim_set_keymap("n", "<leader>dj", ":resize -5<CR>", { noremap = true, silent = true }) -- Decrease horizontal split height
+
+vim.api.nvim_set_keymap("n", "<leader>dh", ":vertical resize +5<CR>", { noremap = true, silent = true }) -- Increase vertical split width
+vim.api.nvim_set_keymap("n", "<leader>dl", ":vertical resize -5<CR>", { noremap = true, silent = true }) -- Decrease vertical split width
 
 -- Split navigation keybindings
 vim.api.nvim_set_keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true })

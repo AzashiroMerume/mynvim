@@ -1,6 +1,20 @@
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "lua_ls" },
+    automatic_installation = false,
+})
+
 local lspconfig = require("lspconfig")
 
 local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup({
+            capabilities = capabilities,
+        })
+    end,
+})
 
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or { silent = true })
@@ -29,6 +43,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 lspconfig.lua_ls.setup({
     capabilities = capabilities,
+})
+
+lspconfig.clangd.setup({
+    capabilities = capabilities,
+    cmd = { "clangd", "--background-index" },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
 })
 
 lspconfig.gdscript.setup({
