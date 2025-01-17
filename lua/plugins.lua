@@ -88,6 +88,7 @@ require("lazy").setup({
     },
     { -- highlighting for harpoon
         "letieu/harpoon-lualine",
+        event = "VeryLazy",
         dependencies = {
             {
                 "ThePrimeagen/harpoon",
@@ -120,7 +121,14 @@ require("lazy").setup({
     -- Theme Picker
     { "zaldih/themery.nvim", event = "VeryLazy" },
     -- Themes
-    { "azashiromerume/nagisa.nvim" },
+    {
+        "azashiromerume/nagisa.nvim",
+        config = function()
+            require("nagisa").setup({
+                transparent = true,
+            })
+        end,
+    },
     { "dasupradyumna/midnight.nvim", event = "VeryLazy" },
     { "folke/zen-mode.nvim", event = "VeryLazy" },
     { "folke/twilight.nvim", event = "VeryLazy" },
@@ -149,8 +157,10 @@ require("lazy").setup({
         event = "VeryLazy",
         dependencies = {
             "saghen/blink.cmp",
+            event = "VeryLazy",
             {
                 "folke/lazydev.nvim",
+                event = "VeryLazy",
                 ft = "lua",
                 opts = {
                     library = {
@@ -168,6 +178,43 @@ require("lazy").setup({
         config = function()
             require("fidget").setup()
         end,
+    },
+    {
+        "folke/trouble.nvim",
+        opts = {},
+        cmd = "Trouble",
+        keys = {
+            {
+                "<leader>xx",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Diagnostics (Trouble)",
+            },
+            {
+                "<leader>xX",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Buffer Diagnostics (Trouble)",
+            },
+            {
+                "<leader>cs",
+                "<cmd>Trouble symbols toggle focus=false<cr>",
+                desc = "Symbols (Trouble)",
+            },
+            {
+                "<leader>cl",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "LSP Definitions / references / ... (Trouble)",
+            },
+            {
+                "<leader>xL",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Location List (Trouble)",
+            },
+            {
+                "<leader>xQ",
+                "<cmd>Trouble qflist toggle<cr>",
+                desc = "Quickfix List (Trouble)",
+            },
+        },
     },
     -- Display prettier diagnostic messages
     {
