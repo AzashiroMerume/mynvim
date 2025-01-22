@@ -124,9 +124,7 @@ require("lazy").setup({
     {
         "azashiromerume/nagisa.nvim",
         config = function()
-            require("nagisa").setup({
-                transparent = true,
-            })
+            require("nagisa").setup({})
         end,
     },
     { "dasupradyumna/midnight.nvim", event = "VeryLazy" },
