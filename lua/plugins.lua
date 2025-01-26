@@ -14,13 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- Wezterm moving between splits
     { "letieu/wezterm-move.nvim", event = "VeryLazy" },
-    -- Dashboard
-    --{
-    --    "nvimdev/dashboard-nvim",
-    --    event = "VimEnter",
-    --    dependencies = { { "nvim-tree/nvim-web-devicons" } },
-    --},
-    -- Lualine
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
@@ -250,34 +243,6 @@ require("lazy").setup({
             },
         },
     },
-    -- Completion setup (old)
-    --{
-    --    "hrsh7th/nvim-cmp",
-    --    event = "BufReadPre",
-    --    opts = function(_, opts)
-    --        opts.sources = opts.sources or {}
-    --        table.insert(opts.sources, {
-    --            name = "lazydev",
-    --            group_index = 0, -- Set group index to 0 to skip loading LuaLS completions
-    --        })
-    --    end,
-    --},
-    --{
-    --    "hrsh7th/cmp-nvim-lsp",
-    --    "saadparwaiz1/cmp_luasnip",
-    --    "hrsh7th/cmp-vsnip",
-    --    "hrsh7th/cmp-path",
-    --    "hrsh7th/cmp-buffer",
-    --    "onsails/lspkind.nvim",
-    --    event = "BufReadPre",
-    --    dependencies = { "hrsh7th/nvim-cmp" },
-    --},
-    --{
-    --    "L3MON4D3/LuaSnip",
-    --    version = "v2.3.0",
-    --    event = "BufReadPre",
-    --},
-    --{ "hrsh7th/vim-vsnip", event = "VeryLazy" },
     -- Rust support
     { "rust-lang/rust.vim", event = "VeryLazy" },
     { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" }, event = "VeryLazy" },
