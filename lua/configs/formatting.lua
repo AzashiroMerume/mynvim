@@ -18,6 +18,7 @@ conform.setup({
         dart = { "dart_format" },
         rust = { "rustfmt" },
         gdscript = { "gdformat" },
+        toml = { "taplo" },
     },
 })
 
