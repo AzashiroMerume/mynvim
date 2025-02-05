@@ -21,5 +21,5 @@ require("oil").setup({
     use_default_keymaps = false,
 })
 
-vim.cmd([[nnoremap <C-b> :Oil<cr>]])
-vim.cmd([[nnoremap <leader>- :Oil<cr>]])
+vim.cmd([[noremap <C-b> :Oil<cr>]])
+vim.keymap.set({ "n", "v" }, "<leader>-", ":<C-U>Oil<CR>", { noremap = true, silent = true })
