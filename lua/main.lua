@@ -19,6 +19,7 @@ vim.cmd([[
     set mouse=a
     set noshowmode
     set updatetime=350
+    set iskeyword-=_ 
     let mapleader=" "
     inoremap jk <Esc>
     vnoremap vjk <Esc>
