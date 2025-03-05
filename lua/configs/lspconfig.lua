@@ -1,21 +1,57 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls" },
+    ensure_installed = { "lua_ls", "clangd", "volar" },
     automatic_installation = false,
 })
 
-local lspconfig = require("lspconfig")
+local config = function(_, opts)
+    local lspconfig = require("lspconfig")
+    for server, server_opts in pairs(opts.servers) do
+        server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
+        lspconfig[server].setup(server_opts)
+    end
+end
 
-local capabilities = require("blink.cmp").get_lsp_capabilities()
+local opts = {
+    servers = {
+        lua_ls = {},
+        clangd = {
+            cmd = { "clangd", "--background-index" },
+            filetypes = { "c", "cpp", "objc", "objcpp" },
+            root_dir = require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+        },
+        gdscript = {
+            force_setup = true,
+            single_file_support = false,
+            cmd = { "ncat", "127.0.0.1", "6005" },
+            root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
+            filetypes = { "gd", "gdscript", "gdscript3" },
+        },
+        dartls = {
+            settings = {
+                dart = {
+                    analysisExcludedFolders = {
+                        vim.fn.expand("$HOME/.pub-cache"),
+                        vim.fn.expand("$HOME/flutter"),
+                    },
+                    updateImportsOnRename = true,
+                    completeFunctionCalls = true,
+                },
+            },
+        },
+        volar = {
+            init_options = {
+                vue = {
+                    hybridMode = false,
+                },
+            },
+        },
+    },
+}
 
-require("mason-lspconfig").setup_handlers({
-    function(server_name)
-        lspconfig[server_name].setup({
-            capabilities = capabilities,
-        })
-    end,
-})
+config(nil, opts)
 
+-- Keybindings for LSP
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
     vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or { silent = true })
 end
@@ -39,46 +75,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
         buf_map(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
         buf_map(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
     end,
-})
-
-lspconfig.lua_ls.setup({
-    capabilities = capabilities,
-})
-
-lspconfig.clangd.setup({
-    capabilities = capabilities,
-    cmd = { "clangd", "--background-index" },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
-    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-})
-
-lspconfig.gdscript.setup({
-    capabilities = capabilities,
-    force_setup = true,
-    single_file_support = false,
-    cmd = { "ncat", "127.0.0.1", "6005" },
-    root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
-    filetypes = { "gd", "gdscript", "gdscript3" },
-})
-
-lspconfig.dartls.setup({
-    capabilities = capabilities,
-    settings = {
-        dart = {
-            analysisExcludedFolders = {
-                vim.fn.expand("$HOME/.pub-cache"),
-                vim.fn.expand("$HOME/flutter"),
-            },
-            updateImportsOnRename = true,
-            completeFunctionCalls = true,
-        },
-    },
-})
-
-lspconfig.volar.setup({
-    init_options = {
-        vue = {
-            hybridMode = false,
-        },
-    },
 })

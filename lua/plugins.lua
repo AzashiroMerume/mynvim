@@ -222,7 +222,7 @@ require("lazy").setup({
         "saghen/blink.cmp",
         dependencies = { "rafamadriz/friendly-snippets", { "L3MON4D3/LuaSnip", version = "v2.*," } },
         event = "VeryLazy",
-        version = "v0.*",
+        version = "*",
 
         opts = {
             keymap = { preset = "default" },
@@ -232,8 +232,6 @@ require("lazy").setup({
                 nerd_font_variant = "mono",
             },
 
-            signature = { enabled = true },
-
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
             },
@@ -241,7 +239,13 @@ require("lazy").setup({
             snippets = {
                 preset = "luasnip",
             },
+
+            fuzzy = { implementation = "prefer_rust_with_warning" },
+
+            signature = { enabled = true },
         },
+
+        opts_extend = { "sources.default" },
     },
     -- Rust support
     { "rust-lang/rust.vim", event = "VeryLazy" },
