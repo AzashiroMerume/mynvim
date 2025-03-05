@@ -8,29 +8,29 @@ vim.keymap.set("n", "<C-p>", function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end)
 
--- Movement on harpooned buffers
-vim.keymap.set("n", "<C-u>", function()
+-- Movement on harpooned buffers using Shift + numbers
+vim.keymap.set("n", "!", function()
     harpoon:list():select(1)
 end)
-vim.keymap.set("n", "<C-i>", function()
+vim.keymap.set("n", "@", function()
     harpoon:list():select(2)
 end)
-vim.keymap.set("n", "<C-n>", function()
+vim.keymap.set("n", "#", function()
     harpoon:list():select(3)
 end)
-vim.keymap.set("n", "<C-m>", function()
+vim.keymap.set("n", "$", function()
     harpoon:list():select(4)
 end)
 
 -- Toggle previous & next buffers stored within Harpoon list
-vim.keymap.set("n", "<S-A-P>", function()
+vim.keymap.set("n", "%", function()
     harpoon:list():prev()
 end)
-vim.keymap.set("n", "<S-A-N>", function()
+vim.keymap.set("n", "^", function()
     harpoon:list():next()
 end)
 
--- basic telescope configuration
+-- Basic Telescope configuration
 local conf = require("telescope.config").values
 local function toggle_telescope(harpoon_files)
     local file_paths = {}
