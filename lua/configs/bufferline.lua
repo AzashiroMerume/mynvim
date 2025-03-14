@@ -1,4 +1,15 @@
-require("bufferline").setup({})
+require("bufferline").setup({
+    options = {
+        custom_filter = function(buf_number)
+            local bufname = vim.fn.bufname(buf_number)
+            -- If the buffer has no name (empty string), don't show it.
+            if bufname == "" then
+                return false
+            end
+            return true
+        end,
+    },
+})
 
 local closed_buffers = {}
 

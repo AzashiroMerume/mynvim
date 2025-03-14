@@ -34,6 +34,16 @@ require("lazy").setup({
         end,
     },
     {
+        "nvim-pack/nvim-spectre",
+        event = "VeryLazy",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("spectre").setup({})
+        end,
+    },
+    {
         "stevearc/oil.nvim",
         -- Optional dependencies
         dependencies = { "nvim-tree/nvim-web-devicons" },
