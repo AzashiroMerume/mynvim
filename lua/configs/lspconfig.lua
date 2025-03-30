@@ -6,9 +6,9 @@ require("mason-lspconfig").setup({
 
 local config = function(_, opts)
     local lspconfig = require("lspconfig")
-    for server, server_opts in pairs(opts.servers) do
-        server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
-        lspconfig[server].setup(server_opts)
+    for server, config in pairs(opts.servers) do
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
     end
 end
 
@@ -76,3 +76,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
         buf_map(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
     end,
 })
+
+vim.keymap.set("n", "<Tab>", ":EagleWin<CR>", { noremap = true, silent = true })

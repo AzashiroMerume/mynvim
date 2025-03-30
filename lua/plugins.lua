@@ -174,6 +174,13 @@ require("lazy").setup({
         },
     },
     {
+        "soulis-1256/eagle.nvim",
+        event = "VeryLazy",
+        opts = {
+            keyboard_mode = true,
+        },
+    },
+    {
         "j-hui/fidget.nvim",
         event = "VeryLazy",
         config = function()
@@ -253,6 +260,13 @@ require("lazy").setup({
             fuzzy = { implementation = "prefer_rust_with_warning" },
 
             signature = { enabled = true },
+
+            completion = {
+                trigger = {
+                    prefetch_on_insert = true,
+                    show_on_keyword = true,
+                },
+            },
 
             cmdline = {
                 completion = { menu = { auto_show = true } },
