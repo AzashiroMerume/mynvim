@@ -9,6 +9,11 @@ vim.keymap.set("n", "<leader>fc", builtin.git_status, {})
 vim.keymap.set("n", "<leader>/", builtin.current_buffer_fuzzy_find, {})
 
 telescope.setup({
+    defaults = {
+        file_ignore_patterns = {
+            "%.uid",
+        },
+    },
     extensions = {
         fzf = {},
         project = {},

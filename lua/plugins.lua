@@ -12,6 +12,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    {
+        "danilamihailov/beacon.nvim",
+        config = function()
+            require("beacon").setup()
+        end,
+    },
     -- Wezterm moving between splits
     { "letieu/wezterm-move.nvim", event = "VeryLazy" },
     {
