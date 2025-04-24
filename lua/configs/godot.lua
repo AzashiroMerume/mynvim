@@ -28,17 +28,26 @@ local function is_address_in_use(address)
     return result ~= ""
 end
 
+local godot_connected = false
+
 local function start_godot_connection(address)
     local godot_project_file = vim.fn.getcwd() .. "/project.godot"
     local gdproject = io.open(godot_project_file, "r")
     if gdproject then
         io.close(gdproject)
         local godot_address = address or get_godot_address()
+
+        if godot_connected then
+            return
+        end
+
         if is_address_in_use(godot_address) then
             print("Address " .. godot_address .. " is already in use. Aborting connection.")
             return
         end
+
         vim.fn.serverstart(godot_address)
+        godot_connected = true
         print("Godot connection started at " .. godot_address)
     end
 end
@@ -77,6 +86,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         )
         if not has_godot then
             start_godot_connection()
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+        if godot_connected then
+            stop_godot_connection()
         end
     end,
 })
