@@ -65,3 +65,18 @@ vim.api.nvim_create_autocmd("DirChanged", {
         start_godot_connection()
     end,
 })
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.gd",
+    callback = function()
+        local clients = vim.lsp.get_clients()
+        local has_godot = vim.tbl_contains(
+            vim.tbl_map(function(c)
+                return c.name
+            end, clients),
+            "godot"
+        )
+        if not has_godot then
+            start_godot_connection()
+        end
+    end,
+})
