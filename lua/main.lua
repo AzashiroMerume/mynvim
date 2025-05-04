@@ -49,11 +49,12 @@ vim.api.nvim_set_keymap("n", "<leader>db", ":split<CR>", { noremap = true, silen
 vim.api.nvim_set_keymap("n", "<leader>de", ":close<CR>", { noremap = true, silent = true })
 
 -- Resize splits
-vim.api.nvim_set_keymap("n", "<leader>dk", ":resize +5<CR>", { noremap = true, silent = true }) -- Increase horizontal split height
-vim.api.nvim_set_keymap("n", "<leader>dj", ":resize -5<CR>", { noremap = true, silent = true }) -- Decrease horizontal split height
-
-vim.api.nvim_set_keymap("n", "<leader>dh", ":vertical resize +5<CR>", { noremap = true, silent = true }) -- Increase vertical split width
-vim.api.nvim_set_keymap("n", "<leader>dl", ":vertical resize -5<CR>", { noremap = true, silent = true }) -- Decrease vertical split width
+-- TODO: Remap
+--vim.api.nvim_set_keymap("n", "<leader>dk", ":resize +5<CR>", { noremap = true, silent = true }) -- Increase horizontal split height
+--vim.api.nvim_set_keymap("n", "<leader>dj", ":resize -5<CR>", { noremap = true, silent = true }) -- Decrease horizontal split height
+--
+--vim.api.nvim_set_keymap("n", "<leader>dh", ":vertical resize +5<CR>", { noremap = true, silent = true }) -- Increase vertical split width
+--vim.api.nvim_set_keymap("n", "<leader>dl", ":vertical resize -5<CR>", { noremap = true, silent = true }) -- Decrease vertical split width
 
 -- Split navigation keybindings
 vim.api.nvim_set_keymap("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true })
@@ -89,11 +90,11 @@ vim.api.nvim_set_keymap("n", "<leader>n", ":bnext<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>p", ":bprev<CR>", { noremap = true })
 
 -- Replace character in normal mode without yanking
-vim.api.nvim_set_keymap("n", "r", '"_r', { noremap = true }) -- Use black hole register to replace a character
+vim.api.nvim_set_keymap("n", "r", '"_r', { noremap = true })
 
 -- Replace selection in visual mode without yanking
-vim.api.nvim_set_keymap("v", "c", '"_c', { noremap = true }) -- Change selected text without yanking
-vim.api.nvim_set_keymap("v", "d", '"_d', { noremap = true }) -- Delete selected text without yanking
+vim.api.nvim_set_keymap("v", "c", '"_c', { noremap = true })
+vim.api.nvim_set_keymap("v", "d", '"_d', { noremap = true })
 
 -- Key mappings to zoom in and out
 vim.api.nvim_set_keymap("n", "<C-=>", ":lua change_font_size(1)<CR>", { noremap = true, silent = true }) -- Zoom in

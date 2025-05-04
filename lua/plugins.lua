@@ -12,6 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    -- Highlight line that cursor jumped on
     {
         "danilamihailov/beacon.nvim",
         config = function()
@@ -30,6 +31,7 @@ require("lazy").setup({
     { "norcalli/nvim-colorizer.lua", event = "VeryLazy" },
     -- Automatically close HTML tags
     { "alvan/vim-closetag", event = "VeryLazy" },
+    { "nvzone/showkeys", cmd = "ShowkeysToggle" },
     -- Surround selections
     {
         "kylechui/nvim-surround",
