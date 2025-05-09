@@ -12,13 +12,13 @@ conform.setup({
         html = { "prettierd" },
         json = { "prettierd" },
         yaml = { "prettierd" },
-        markdown = { "prettierd" },
         graphql = { "prettierd" },
         lua = { "stylua" },
         dart = { "dart_format" },
         rust = { "rustfmt" },
         gdscript = { "gdformat" },
         toml = { "taplo" },
+        markdown = { "mdformat" },
     },
 })
 
