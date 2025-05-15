@@ -16,14 +16,8 @@ end
 
 local function is_address_in_use(address)
     local ip, port = address:match("(.+):(%d+)")
-    local command
-
-    if vim.fn.has("win32") == 1 then
-        command = "netstat -ano | findstr :" .. port
-    else
-        command = "ss -tuln | grep " .. ip .. ":" .. port
-    end
-
+    local command = vim.fn.has("win32") == 1 and ("netstat -ano | findstr :" .. port)
+        or ("ss -tuln | grep " .. ip .. ":" .. port)
     local result = vim.fn.system(command)
     return result ~= ""
 end
@@ -31,66 +25,89 @@ end
 local godot_connected = false
 
 local function start_godot_connection(address)
+    if godot_connected then
+        return
+    end
     local godot_project_file = vim.fn.getcwd() .. "/project.godot"
     local gdproject = io.open(godot_project_file, "r")
-    if gdproject then
-        io.close(gdproject)
-        local godot_address = address or get_godot_address()
-
-        if godot_connected then
-            return
-        end
-
-        if is_address_in_use(godot_address) then
-            print("Address " .. godot_address .. " is already in use. Aborting connection.")
-            return
-        end
-
-        vim.fn.serverstart(godot_address)
-        godot_connected = true
-        print("Godot connection started at " .. godot_address)
+    if not gdproject then
+        return
     end
+    io.close(gdproject)
+    local godot_address = address or get_godot_address()
+    if is_address_in_use(godot_address) then
+        print("Address " .. godot_address .. " is already in use. Aborting connection.")
+        return
+    end
+    vim.fn.serverstart(godot_address)
+    godot_connected = true
+    print("Godot connection started at " .. godot_address)
 end
 
 local function stop_godot_connection()
     local godot_address = get_godot_address()
     vim.fn.serverstop(godot_address)
-    print("Godot connection stopped at " .. godot_address)
+    for _, client in pairs(vim.lsp.get_clients({ name = "gdscript" })) do
+        vim.lsp.stop_client(client.id)
+    end
+    godot_connected = false
+    print("Godot connection and LSP stopped at " .. godot_address)
 end
 
 vim.api.nvim_create_user_command("StartGodotConnection", function(opts)
     local address = opts.args ~= "" and opts.args or nil
     start_godot_connection(address)
 end, { nargs = "?" })
+
 vim.api.nvim_create_user_command("StopGodotConnection", stop_godot_connection, {})
 
-vim.api.nvim_create_autocmd("VimEnter", {
+vim.api.nvim_create_user_command("RestartGDScriptLSP", function()
+    for _, client in pairs(vim.lsp.get_clients({ name = "gdscript" })) do
+        vim.lsp.stop_client(client.id)
+    end
+    start_godot_connection()
+    require("lspconfig").gdscript.setup({
+        force_setup = true,
+        single_file_support = false,
+        cmd = { "ncat", "127.0.0.1", "6005" },
+        root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
+        filetypes = { "gd", "gdscript", "gdscript3" },
+    })
+    print("GDScript LSP restarted")
+end, {})
+
+vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
     callback = function()
-        start_godot_connection()
-    end,
-})
-vim.api.nvim_create_autocmd("DirChanged", {
-    callback = function()
-        start_godot_connection()
-    end,
-})
-vim.api.nvim_create_autocmd("BufReadPost", {
-    pattern = "*.gd",
-    callback = function()
-        local clients = vim.lsp.get_clients()
-        local has_godot = vim.tbl_contains(
-            vim.tbl_map(function(c)
-                return c.name
-            end, clients),
-            "godot"
-        )
-        if not has_godot then
+        if not godot_connected then
             start_godot_connection()
         end
     end,
 })
 
-vim.api.nvim_create_autocmd("VimLeavePre", {
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.gd",
+    callback = function()
+        local clients = vim.lsp.get_clients({ name = "gdscript" })
+        if
+            #clients == 0
+            or vim.tbl_contains(clients, function(c)
+                return c.is_stopped()
+            end, { predicate = true })
+        then
+            print("GDScript LSP not running or stopped, starting connection...")
+            start_godot_connection()
+            require("lspconfig").gdscript.setup({
+                force_setup = true,
+                single_file_support = false,
+                cmd = { "ncat", "127.0.0.1", "6005" },
+                root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
+                filetypes = { "gd", "gdscript", "gdscript3" },
+            })
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimLeave", {
     callback = function()
         if godot_connected then
             stop_godot_connection()

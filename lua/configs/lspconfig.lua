@@ -1,7 +1,8 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "clangd", "volar" },
+    ensure_installed = { "clangd", "volar" },
     automatic_installation = false,
+    automatic_enable = true,
 })
 
 local config = function(_, opts)
@@ -14,7 +15,6 @@ end
 
 local opts = {
     servers = {
-        lua_ls = {},
         clangd = {
             cmd = { "clangd", "--background-index" },
             filetypes = { "c", "cpp", "objc", "objcpp" },

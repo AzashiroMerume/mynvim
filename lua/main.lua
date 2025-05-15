@@ -18,7 +18,7 @@ vim.cmd([[
     set expandtab
     set mouse=a
     set noshowmode
-    set updatetime=350
+    set updatetime=650
     set iskeyword-=_ 
     let mapleader=" "
     inoremap jk <Esc>
