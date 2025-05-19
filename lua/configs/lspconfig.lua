@@ -23,7 +23,7 @@ local opts = {
         gdscript = {
             force_setup = true,
             single_file_support = false,
-            cmd = { "godot", "--headless", "--editor", "--lsp" },
+            cmd = { "ncat", "localhost", "6005" },
             root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
             filetypes = { "gd", "gdscript", "gdscript3" },
         },

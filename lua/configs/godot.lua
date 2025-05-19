@@ -61,21 +61,6 @@ end, { nargs = "?" })
 
 vim.api.nvim_create_user_command("StopGodotConnection", stop_godot_connection, {})
 
-vim.api.nvim_create_user_command("RestartGDScriptLSP", function()
-    for _, client in pairs(vim.lsp.get_clients({ name = "gdscript" })) do
-        vim.lsp.stop_client(client.id)
-    end
-    start_godot_connection()
-    require("lspconfig").gdscript.setup({
-        force_setup = true,
-        single_file_support = false,
-        cmd = { "ncat", "127.0.0.1", "6005" },
-        root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
-        filetypes = { "gd", "gdscript", "gdscript3" },
-    })
-    print("GDScript LSP restarted")
-end, {})
-
 vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
     callback = function()
         if not godot_connected then
@@ -96,13 +81,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         then
             print("GDScript LSP not running or stopped, starting connection...")
             start_godot_connection()
-            require("lspconfig").gdscript.setup({
-                force_setup = true,
-                single_file_support = false,
-                cmd = { "ncat", "127.0.0.1", "6005" },
-                root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
-                filetypes = { "gd", "gdscript", "gdscript3" },
-            })
         end
     end,
 })
