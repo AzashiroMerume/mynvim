@@ -283,6 +283,8 @@ require("lazy").setup({
 
         opts_extend = { "sources.default" },
     },
+    -- Godot support
+    { "lommix/godot.nvim" },
     -- Rust support
     { "rust-lang/rust.vim", event = "VeryLazy" },
     { "mrcjkb/rustaceanvim", version = "^4", ft = { "rust" }, event = "VeryLazy" },
