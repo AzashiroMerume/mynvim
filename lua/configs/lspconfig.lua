@@ -21,9 +21,7 @@ local opts = {
             root_dir = require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
         },
         gdscript = {
-            force_setup = true,
-            single_file_support = false,
-            cmd = { "ncat", "localhost", "6005" },
+            cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
             root_dir = require("lspconfig.util").root_pattern("project.godot", ".git"),
             filetypes = { "gd", "gdscript", "gdscript3" },
         },

@@ -133,7 +133,7 @@ require("lazy").setup({
     { "zaldih/themery.nvim", event = "VeryLazy" },
     -- Themes
     {
-        "azashiromerume/nagisa.nvim",
+        "sanzharkuandyk/nagisa.nvim",
         config = function()
             require("nagisa").setup({})
         end,
